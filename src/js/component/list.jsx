@@ -3,8 +3,8 @@ import Button from "react-bootstrap/Button";
 
 function List() {
 	const newURL = "https://assets.breatheco.de/apis/fake/todos/user/"; //la url de nuestra api o el path del servidor donde entra o sale la informacion que queremos
-	const [listado, setListado] = useState([]); // declaramos esta constante para tener nuestra variable que guarda la informacion de la API (listado)
-	// y nuestra super funcion que cambiara esa variable listado (setListado) {TODO ESTO SE HACE A TRAVEZ DE UN useState de tipo array []}
+	const [myList, setmyList] = useState([]); // declaramos esta constante para tener nuestra variable que guarda la informacion de la API (myList)
+	// y nuestra super funcion que cambiara esa variable myList (setmyList) {TODO ESTO SE HACE A TRAVEZ DE UN useState de tipo array []}
 	const [pintedList, setPintedList] = useState(""); // declaramos esta constante para tener nuestra variable que RENDERIZA en la pagina las tareas que existen en la API
 	// y nuestra super funcion que cambiara esa variable (setPintedList) [TODO ESTO SE HACE A TRAVEZ DE UN useState de tipo string ""]
 	const [bool, setBool] = useState(true); // cosntante para limpiar los elementos del imput. declaro un booleano para ver el estado del input , si esta ha cambiado que lo ponga limpio
@@ -19,22 +19,22 @@ function List() {
 				return response.json();
 			})
 			.then(function(responseAsJson) {
-				setListado(responseAsJson);
+				setmyList(responseAsJson);
 				console.log("JSON", responseAsJson);
 			})
 			.catch(function(error) {
 				"Looks like there was a problem! ", error;
 			});
-		// si meto la variable listado en el arr se llama constatemente
+		// si meto la variable myList en el arr se llama constatemente
 	}, []);
 
 	// segundo fetch para actualizar los cambios en la bbdd  METODO PUT
 	useEffect(() => {
-		console.log("estado :D", listado);
+		console.log("estado :D", myList);
 		fetch(newURL.concat("alberto"), {
 			method: "PUT",
 			mode: "cors",
-			body: JSON.stringify(listado),
+			body: JSON.stringify(myList),
 			headers: new Headers({
 				"Content-Type": "application/json"
 			})
@@ -48,14 +48,14 @@ function List() {
 	////////////borrar de las lista
 	//  guardar en un array temporal
 	const deleteList = indexToDelete => {
-		const result = listado.filter(_ => indexToDelete);
+		const result = myList.filter(_ => indexToDelete);
 		return result;
 	};
 
 	// mapeo de la lista de datos
 	useEffect(() => {
 		setPintedList(
-			listado.map((element, index) => {
+			myList.map((element, index) => {
 				return (
 					// element.done no lo muestra por que es un bolean y no muestra eso pinta txt
 					<li key={index.toString()}>
@@ -64,8 +64,8 @@ function List() {
 							onClick={event => {
 								{
 									event.preventDefault();
-									setListado([
-										...listado,
+									setmyList([
+										...myList,
 										{
 											label: event.target.value,
 											done: false
@@ -80,7 +80,7 @@ function List() {
 				);
 			})
 		);
-	}, [listado]);
+	}, [myList]);
 	return (
 		<div className="card container">
 			<div className="my-3">
@@ -91,8 +91,8 @@ function List() {
 						// if (event.key === "");
 						if (event.key === "Enter") {
 							event.preventDefault();
-							setListado([
-								...listado,
+							setmyList([
+								...myList,
 								{ label: event.target.value, done: false }
 							]);
 							setBool(!bool);
