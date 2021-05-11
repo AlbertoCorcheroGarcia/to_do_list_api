@@ -1,5 +1,29 @@
 @import "~bootstrap/scss/bootstrap.scss";
 
+.card{
+    width: 18rem
+    
+}
+.print{
+    
+    text-align: start;
+}
+li{
+    padding: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+button{
+    border: none;
+    background-color: red;
+    opacity: 0.8;
+    border-radius: 50%;
+    color: black;
+    text-align: right;
+    //padding-left: 0.1rem;
+    // opacity: 0.1;
+}
 /* 
 
     You can write your own styles here...
