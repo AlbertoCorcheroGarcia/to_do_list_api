@@ -48,8 +48,18 @@ function List() {
 	////////////borrar de las lista
 	//  guardar en un array temporal
 	const deleteList = indexToDelete => {
-		const result = myList.filter(_ => indexToDelete);
-		return result;
+		console.log(myList);
+		console.log(indexToDelete);
+
+		//const result = myList.filter(elementToDelete => indexToDelete);
+		const filterDelete = myList.filter((_, index) => {
+			console.log(index);
+			return index !== indexToDelete;
+		});
+		console.log(filterDelete);
+		setmyList(filterDelete);
+		setBool(!bool);
+		return;
 	};
 
 	// mapeo de la lista de datos
@@ -64,13 +74,13 @@ function List() {
 							onClick={event => {
 								{
 									event.preventDefault();
-									setmyList([
+									/*setmyList([
 										...myList,
 										{
 											label: event.target.value,
 											done: false
 										}
-									]);
+									]);*/
 									deleteList(index);
 								}
 							}}>
